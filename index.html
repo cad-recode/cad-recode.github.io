@@ -1,1 +1,238 @@
-Hello
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="CAD-Recode: Reverse Engineering CAD Code from Point Clouds">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nerfies: Deformable Neural Radiance Fields</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/5.9.1/gradio.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">CAD-Recode: Reverse Engineering CAD Code from Point Clouds
+</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://github.com/filapro">Danila Rukhovich</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=i9J6YFMAAAAJ">Elona Dupont</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://dimitrismallis.github.io/">Dimitrios Mallis</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=VepvFBkAAAAJ">Kseniya Cherenkova</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=K3EWusMAAAAJ">Anis Kacem</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=WBmJVSkAAAAJ">Djamila Aouada</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>SnT, University of Luxembourg,</span>
+            <span class="author-block"><sup>2</sup>Artec3D</span>
+          </div>
+          <div class="column">
+            <img src="./static/images/iccv.png" alt="ICCV 2025" style="height:3em;">
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2412.14042"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/filapro/cad-recode-v1.5"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Huggingface" style="height:1em;vertical-align:middle;">
+                  </span>
+                  <span>Model</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/filapro/cad-recode-v1.5"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Huggingface" style="height:1em;vertical-align:middle;">
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/spaces/filapro/cad-recode"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Huggingface" style="height:1em;vertical-align:middle;">
+                  </span>
+                  <span>Demo</span>
+                </a>
+              </span>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="container is-max-desktop">
+  <div class="columns is-centered has-text-centered">
+    <div class="column">
+      <h2 class="title is-3">TL;DR</h2>
+      <div class="content has-text-justified">
+        CAD-Recode is the first model to translate 3D point clouds into executable Python CAD scripts, combining a novel output format (CadQuery code), a lightweight Qwen2-1.5B-based architecture with a single-layer point cloud encoder, and a procedurally generated dataset of 1 million CAD programs - setting a new standard in interpretable 3D reverse engineering.
+      </div>
+      <img src="./static/images/scheme.png" alt="Sheme">
+    </div>
+  </div>
+</div>
+
+<div class="container is-max-desktop">
+  <div class="columns is-centered has-text-centered">
+    <div class="column">
+      <h2 class="title is-3">CAD Representation as Code</h2>
+      <div class="content has-text-justified">
+        Unlike DeepCAD's closed and limited token vocabulary, CAD-Recode leverages the full expressiveness of Python with the CadQuery library, enabling rich, interpretable, and modular representations of CAD programs that mirror real-world design logic and support human editing, inspection, and reuse.
+      </div>
+      <img src="./static/images/cadquery.png" alt="CadQuery", style="width: 50%;">
+    </div>
+  </div>
+</div>
+
+<div class="container is-max-desktop">
+  <div class="columns is-centered has-text-centered">
+    <div class="column">
+      <h2 class="title is-3">Procedurally Generated Dataset</h2>
+      <div class="content has-text-justified">
+        To train CAD-Recode, we introduce a dataset of 1 million procedurally generated Python CadQuery programs, featuring both low-level sketch primitives—like lines, circles, and arcs—and higher-level geometric abstractions such as rectangles, boxes, and cylinders.
+      </div>
+      <img src="./static/images/dataset.png" alt="CAD-Recode Dataset">
+    </div>
+  </div>
+</div>
+
+<div class="container is-max-desktop">
+  <div class="columns is-centered has-text-centered">
+    <div class="column">
+      <h2 class="title is-3">Results</h2>
+      <div class="content has-text-justified">
+        While previous methods often fail to restore the general shape, CAD-Recode outputs only slightly deviate from ground truth in most cases.     
+      </div>
+      <img src="./static/images/qualitative.png" alt="qualitative results">
+      <div class="content has-text-justified">
+        Trained solely on a procedurally generated dataset, CAD-Recode significantly outperforms prior methods on DeepCAD and Fusion360 benchmarks, achieving 10× lower Chamfer Distance and over 20% higher IoU.
+      </div>
+      <table border="1" style="border-collapse: collapse; table-layout: fixed; width: 100%;">
+        <thead>
+          <tr>
+            <th rowspan="2" style="text-align: center; width: 12%;">Method</th>
+            <th colspan="2" style="text-align: center;">Train Dataset</th>
+            <th colspan="4" style="text-align: center;">DeepCAD Test Set</th>
+            <th colspan="4" style="text-align: center;">Fusion360 Test Set</th>
+          </tr>
+          <tr>
+            <th style="text-align: center; width: 12%;">Name</th>
+            <th style="text-align: center; width: 8%;">Size</th>
+            <th style="text-align: center; width: 8%;">Mean CD↓</th>
+            <th style="text-align: center; width: 8%;">Med. CD↓</th>
+            <th style="text-align: center; width: 8%;">IoU↑</th>
+            <th style="text-align: center; width: 8%;">IR↓</th>
+            <th style="text-align: center; width: 8%;">Mean CD↓</th>
+            <th style="text-align: center; width: 8%;">Med. CD↓</th>
+            <th style="text-align: center; width: 8%;">IoU↑</th>
+            <th style="text-align: center; width: 8%;">IR↓</th>
+          </tr>
+        </thead>
+        <tbody style="text-align: center;">
+          <tr><td>DeepCAD</td><td>DeepCAD</td><td>160k</td><td>42.5</td><td>9.64</td><td>46.7</td><td>7.1</td><td>330</td><td>89.2</td><td>39.9</td><td>25.2</td></tr>
+          <tr><td>PrismCAD</td><td>DeepCAD</td><td>127k</td><td>–</td><td>4.28</td><td>72.1</td><td>16.2</td><td>–</td><td>4.75</td><td>65.3</td><td>18.0</td></tr>
+          <tr><td>Point2Cyl</td><td>DeepCAD</td><td>35k</td><td>–</td><td>4.27</td><td>73.8</td><td>3.9</td><td>–</td><td>4.18</td><td>67.5</td><td>3.2</td></tr>
+          <tr><td>HNC-CAD</td><td>DeepCAD</td><td>125k</td><td>–</td><td>8.64</td><td>65.3</td><td>5.6</td><td>–</td><td>36.8</td><td>63.5</td><td>7.3</td></tr>
+          <tr><td>MultiCAD</td><td>DeepCAD</td><td>160k</td><td>–</td><td>8.09</td><td>–</td><td>11.5</td><td>–</td><td>42.2</td><td>–</td><td>16.5</td></tr>
+          <tr><td>TransCAD</td><td>DeepCAD</td><td>140k</td><td>32.3</td><td>4.51</td><td>65.5</td><td>1.1</td><td>78.6</td><td>33.4</td><td>60.2</td><td>2.4</td></tr>
+          <tr><td>CAD-Diffuser</td><td>DeepCAD</td><td>160k</td><td>–</td><td>3.02</td><td>74.3</td><td>1.5</td><td>–</td><td>3.62</td><td>63.3</td><td>1.7</td></tr>
+          <tr><td>CAD-SIGNet</td><td>DeepCAD</td><td>160k</td><td>3.43</td><td>0.28</td><td>77.6</td><td>0.9</td><td>7.37</td><td>4.08</td><td>70.4</td><td>1.1</td></tr>
+          <tr><td><strong>CAD-Recode</strong></td><td>DeepCAD</td><td>160k</td><td>0.89</td><td>0.20</td><td>86.2</td><td><strong>0.0</strong></td><td>1.77</td><td>0.30</td><td>75.6</td><td><strong>0.0</strong></td></tr>
+          <tr><td><strong>CAD-Recode</strong></td><td>Ours</td><td>1M</td><td><strong>0.30</strong></td><td><strong>0.16</strong></td><td><strong>92.0</strong></td><td>0.4</td><td><strong>0.35</strong></td><td><strong>0.15</strong></td><td><strong>87.8</strong></td><td>0.5</td></tr>
+        </tbody>
+      </table>
+      <div class="content has-text-justified">
+        <br>Ablation results show that scaling the training dataset and using sample selection at inference (choosing the best of 10) consistently boost performance across all three benchmarks.
+      </div>
+      <img src="./static/images/ablations.png" alt="ablations">
+    </div>
+  </div>
+</div>
+</section>
+
+<gradio-app src="https://filapro-cad-recode.hf.space"></gradio-app>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{rukhovich2025cad-recode,
+  author    = {Danila Rukhovich, Elona Dupont, Dimitrios Mallis, Kseniya Cherenkova, Anis Kacem, Djamila Aouada},
+  title     = {CAD-Recode: Reverse Engineering CAD Code from Point Clouds},
+  journal   = {ICCV},
+  year      = {2025},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="content", style="text-align: center;">
+    <p>
+      This website is based on <a href="https://github.com/nerfies/nerfies.github.io">nerfies.github.io</a> template.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
