@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="description"
         content="CAD-Recode: Reverse Engineering CAD Code from Point Clouds">
-  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="keywords" content="CAD-Recode, CAD, Point Clouds, Reverse Engineering, CadQuery, Deep Learning">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nerfies: Deformable Neural Radiance Fields</title>
+  <title>CAD-Recode: Reverse Engineering CAD Code from Point Clouds</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -36,8 +36,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">CAD-Recode: Reverse Engineering CAD Code from Point Clouds
-</h1>
+          <h1 class="title is-1 publication-title">CAD-Recode: Reverse Engineering CAD Code from Point Clouds</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://github.com/filapro">Danila Rukhovich</a><sup>1</sup>,</span>
@@ -140,7 +139,7 @@
       <div class="content has-text-justified">
         Unlike DeepCAD's closed and limited token vocabulary, CAD-Recode leverages the full expressiveness of Python with the CadQuery library, enabling rich, interpretable, and modular representations of CAD programs that mirror real-world design logic and support human editing, inspection, and reuse.
       </div>
-      <img src="./static/images/cadquery.png" alt="CadQuery", style="width: 50%;">
+      <img src="./static/images/cadquery.png" alt="CadQuery", style="width: 60%;">
     </div>
   </div>
 </div>
@@ -203,9 +202,9 @@
         </tbody>
       </table>
       <div class="content has-text-justified">
-        <br>Ablation results show that scaling the training dataset and using sample selection at inference (choosing the best of 10) consistently boost performance across all three benchmarks.
+        <br>Given the code output from CAD-Recode and a generic prompt, GPT-4o allows automated and interactive editing of the CAD model or CAD question answering on SGP-Bench.
       </div>
-      <img src="./static/images/ablations.png" alt="ablations">
+      <img src="./static/images/gpt.png" alt="editability" style="width: 60%;">
     </div>
   </div>
 </div>
